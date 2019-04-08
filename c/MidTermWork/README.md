@@ -1,8 +1,16 @@
 <head style="background-color:powderblue;">
 <meta charset="utf-8">
 </head>
+<p>该作业有3个文件
+  分别是:<br>
+  main.c(main函数)<br>
+  problem.c(其他函数)  <br>
+  Problem.h(其他函数声明)<br>
+</p>
+
+
 <pre>
-<h1>机械类1804期中大作业要求:  </h1>
+<h1>附机械类1804期中大作业要求:  </h1>
 <h2>一、课题要求：</h2>  
 <h4>  (1)完成一个小学生测验系统。  
   (2)面向小学1到2年级学生，随机选择两个整数和加减法形成算式要求学生解答。  </h4>
