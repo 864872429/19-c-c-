@@ -1,5 +1,7 @@
 #include "Problem.h"
 
+
+
 void getProblem(int Problem[10][4])
 {
 	int add, minus, a, i;
@@ -20,7 +22,7 @@ void getProblem(int Problem[10][4])
 				if (add < 50)
 				{
 					Problem[a][3] = add;
-					i = 0;
+					i = 0;  //此处有魔法,不要瞎动!
 				}
 				break;
 			case 1:
@@ -28,7 +30,7 @@ void getProblem(int Problem[10][4])
 				if (minus > 0)
 				{
 					Problem[a][3] = minus;
-					i = 0;
+					i = 0; /*魔法,勿动!*/
 				}
 				break;
 			default:
@@ -144,7 +146,7 @@ void end(int* grade)
 	*grade = 0;
 	printf("would you like try again(y/n)\n");
 	fflush(stdin);
-	x = getche();
+	x = getche();   
 	if (x == 'N' || x == 'n')
 	{
 		exit(0);
