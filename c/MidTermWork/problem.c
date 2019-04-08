@@ -1,7 +1,3 @@
-#pragma warning(disable : 4996)
-
-#include <stdio.h>
-#include <stdlib.h>
 #include "Problem.h"
 
 void getProblem(int Problem[10][4])
@@ -148,7 +144,7 @@ void end(int* grade)
 	*grade = 0;
 	printf("would you like try again(y/n)\n");
 	fflush(stdin);
-	x = getchar();
+	x = getche();
 	if (x == 'N' || x == 'n')
 	{
 		exit(0);
