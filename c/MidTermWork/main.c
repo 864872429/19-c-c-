@@ -9,7 +9,7 @@ latsUpdate:2019/04/08
 
 int main()
 {
-	int Problem[10][4], i = 1, grade = 0;
+	int Problem[10][4], grade = 0;
 	srand(time(NULL));
 	while (1)
 	{
