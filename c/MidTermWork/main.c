@@ -18,5 +18,7 @@ int main()
 		getgrade(Problem, &grade);
 		end(&grade);
 	}
+	
 	system("PAUSE");
 }
+
