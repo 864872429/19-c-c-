@@ -1,12 +1,12 @@
 #pragma once
 #pragma warning(disable:4996)
 
-#ifndef Problem_H
-#define Problem_H
-#define random(x) (rand() % x)
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#ifndef Problem_H
+#define Problem_H
+#define random(x) (rand() % x)
 
 void correct();
 void wrong();
