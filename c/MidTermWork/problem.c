@@ -15,14 +15,14 @@ void getProblem(int Problem[10][4])
 			Problem[a][2] = random(50);
 			add = Problem[a][0] + Problem[a][2];
 			minus = Problem[a][0] - Problem[a][2];
-			switch (Problem[a][1])
+			switch (Problem[a][1])/*此处有魔法,不要瞎动*/
 			{
 			case 0:
 				Problem[a][1] = '+';
 				if (add < 50)
 				{
 					Problem[a][3] = add;
-					i = 0;  //此处有魔法,不要瞎动!
+					i = 0;  
 				}
 				break;
 			case 1:
@@ -30,7 +30,7 @@ void getProblem(int Problem[10][4])
 				if (minus > 0)
 				{
 					Problem[a][3] = minus;
-					i = 0; /*魔法,勿动!*/
+					i = 0; 
 				}
 				break;
 			default:
@@ -71,15 +71,10 @@ int count(int x)
 {
 	switch (x)
 	{
-	case 0:
-		return 10;
-	case 1:
-		return 7;
-	case 2:
-		return 5;
-	default:
-		return 0;
-	}
+	case 0:return 10;
+	case 1:return 7;
+	case 2:return 5;
+	}	/*魔法,勿动!*/
 }
 
 void wrong()
@@ -152,3 +147,8 @@ void end(int* grade)
 		exit(0);
 	}
 }
+/*致终于来到这里的勇敢的人:你是被上帝选中的人
+英勇的,不辞劳苦的,不眠不休的来修改我们这最棘手代码的编程骑士
+你,我们的救世主,人中之龙,我要对你说
+永远不要放弃,永远不要对自己失望,永远不要逃走
+永远不要哭啼,永远不要说再见,永远不要用谎言来伤害自己*/
