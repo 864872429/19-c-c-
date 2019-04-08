@@ -1,13 +1,13 @@
 <head style="background-color:powderblue;">
 <meta charset="utf-8">
 </head>
-<p>该作业有3个文件
-  分别是:<br>
+<h3>该作业有3个文件</h3>
+<p>分别是:<br>
   main.c(main函数)<br>
-  problem.c(其他函数)  <br>
-  Problem.h(其他函数声明)<br>
+  problem.c(实现功能函数)  <br>
+  Problem.h(实现功能函数声明)<br>
 </p>
-
+<h4>需要放在一个工程里进行编译</h4>
 
 <pre>
 <h1>附机械类1804期中大作业要求:  </h1>
