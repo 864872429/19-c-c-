@@ -1,25 +1,26 @@
-# 机械类1804期中大作业要求:  
-### 一、课题要求：  
-  &emsp;(1)完成一个小学生测验系统。  
-  &emsp;(2)面向小学1到2年级学生，随机选择两个整数和加减法形成算式要求学生解答。  
-### 二、功能要求：  
-  &emsp;(1)电脑随机出10道题，每题10分，程序结束时显示学生得分；  
+<pre>
+<h1>机械类1804期中大作业要求:  </h1>
+<h2>一、课题要求：</h2>  
+<h3> &emsp;(1)完成一个小学生测验系统。  
+     &emsp;(2)面向小学1到2年级学生，随机选择两个整数和加减法形成算式要求学生解答。  </h3>
+<h2> 二、功能要求： </h2> 
+<h3>  &emsp;(1)电脑随机出10道题，每题10分，程序结束时显示学生得分；  
   &emsp;(2)确保算式没有超出1到2年级的水平，只允许进行50以内的加减法，不允许两数之和或之差超出0~50的范围，负数更是不允许的；  
   &emsp;(3)每道题学生有三次机会输入答案，当学生输入错误答案时，提醒学生重新输入，如果三次机会结束则输出正确答案；  
-  &emsp;  对于正确答案，可在以下4种提示信息中随机选择一个输出：  
+  &emsp;  对于正确答案，可在以下4种提示信息中随机选择一个输出：  </h3>
   &emsp;&emsp;   Very good!  
   &emsp;&emsp;   Excellent!  
   &emsp;&emsp;   Nice work!  
   &emsp;&emsp;   Keep up the good work!  
-  &emsp;  对于错误答案，可在以下4种提示信息中随机选择一个输出：  
+ <h3> &emsp;  对于错误答案，可在以下4种提示信息中随机选择一个输出： </h3> 
   &emsp;&emsp;   No. Please try again.  
   &emsp;&emsp;   Wrong. Try once more.  
   &emsp;&emsp;   No. Don’t give up!  
   &emsp;&emsp;   Not correct. Keep trying.  
   &emsp;(4)对于每道题，学生第一次输入正确答案得10分，第二次输入正确答案得7分，第三次输入正确答案得5分，否则不得分；  
   &emsp;(5)总成绩90以上显示“SMART”,80-90显示“GOOD”，70-80显示“OK”,60-70显示“PASS”，60以下“TRY AGAIN”  
-### 三、评分标准  
-  &emsp;(1)大作业共40分，按实现的功能得分，评分方法如下：  
+<h2> 三、评分标准  </h2>
+<h3>  &emsp;(1)大作业共40分，按实现的功能得分，评分方法如下：  </h3>
   &emsp;&emsp;  实现功能      &emsp;&emsp;&emsp;&emsp;   得分  
   &emsp;&emsp;  随机出10道题  &emsp;&emsp;                14  
   &emsp;&emsp;  算式控制      &emsp;&emsp;&emsp;&emsp;    5  
@@ -27,4 +28,5 @@
   &emsp;&emsp;  答题提示语    &emsp;&emsp;&emsp;          4  
   &emsp;&emsp;  答题计分      &emsp;&emsp;&emsp;&emsp;    4  
   &emsp;&emsp;  总成绩显示    &emsp;&emsp;&emsp;          3  
-  &emsp;(2)大作业占期中成绩的40%。  
+  &emsp;(2)大作业占期中成绩的40%。    
+  </pre>
