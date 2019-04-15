@@ -8,8 +8,8 @@
 #define Problem_H
 #define random(x) (rand() % x)
 
-void getProblem(int [][4], int[][50]);
+void getProblem(int [][4],);
 void WrongOrCorrect(int);
-void getgrade(int [][4], int [][50], int* grade);
+void getgrade(int [][4],  int* grade);
 void End(int*);
 #endif
