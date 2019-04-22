@@ -9,14 +9,14 @@ latsUpdate:2019/04/08
 
 int main()
 {
-	int Problem[10][4], grade = 0, put[13][50];
+	int Problem[10][4], grade = 0;
 	srand(time(NULL));
 	while (1)
 	{
 		system("cls");
-		getProblem(Problem,put);
-		getgrade(Problem, put, &grade);
-		End(&grade, put);
+		getProblem(Problem);
+		getgrade(Problem, &grade);
+		End(&grade);
 	}
 	
 	system("PAUSE");
