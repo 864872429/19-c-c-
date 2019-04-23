@@ -40,9 +40,9 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN ANY WAY CONNECTION WITH THE
 LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.
 author:lumanke
-version:3.1
+version:3.4
 date:2019/03/09
-latsUpdate:2019/04/15
+latsUpdate:2019/04/22
 ****************************************************/
 
 #include <time.h>
