@@ -60,8 +60,8 @@ int main()
 	while (1)
 	{
 		system("cls");
-		getProblem(Problem);
-		getgrade(Problem, &grade);
+		GetProblem(Problem);
+		GetGrade(Problem, &grade);
 		End(&grade);
 	}
 	
