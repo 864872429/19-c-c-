@@ -69,6 +69,7 @@ int main()
 		End(&grade);
 	}
 }
+
 void GetProblem(int Problem[10][4])
 {
 	int i=0;
