@@ -50,7 +50,7 @@ latsUpdate:2019/04/22
 #include <stdlib.h>
 
 #define random(x) (rand() % x)
-//#define scanf scanf_s//Èô±¨´íÇë×¢ÊÍ
+//#define scanf scanf_s//ÃˆÃ´Â±Â¨Â´Ã­Ã‡Ã«Ã—Â¢ÃŠÃ
 
 void GetProblem(int[][4]);
 void WrongOrCorrect(int);
@@ -108,6 +108,7 @@ void GetGrade(int Problem[10][4], int* grade)
 		for (j = 0; j < 3; j++)
 		{
 			printf("%d%c%d=", Problem[i][0], Problem[i][1], Problem[i][2]);
+			fflush(stdin);
 			scanf("%d", &answer);
 			if (answer == Problem[i][3])
 			{
@@ -142,6 +143,7 @@ void End(int* grade)
 	}
 	*grade = 0;
 	printf("would you like try again(y/n)\n");
+	fflush(stdin);
 	if (getchar() == 'N' || getchar() == 'n')
 	{
 		exit(0);
