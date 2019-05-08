@@ -20,8 +20,10 @@ https://github.com/996icu/996.ICU/blob/master/LICENSE"
 
 #define RANDOM(x) (rand() % x)
 
-#define random(x) (rand() % x)
-//#define scanf scanf_s//脠么卤篓麓铆脟毛脳垄脢脥
+struct Problem * GetProblem(struct Problem *);
+void GetGrade(struct Problem *);
+void File(struct Problem *, int);
+void End(struct Problem *);
 
 struct Problem
 {
@@ -44,7 +46,7 @@ int main()
     }
 }
 
-struct Problem *GetProblem(struct Problem *p)
+struct Problem * GetProblem(struct Problem *p)
 {
     int i = 0;
     while (i < 10)
@@ -62,7 +64,7 @@ void GetGrade(struct Problem *p)
 {
     int i, j, answer;
     void WrongOrCorrect(int);
-    void NotebookOfWrong(int a, int b, struct Problem *p);
+    void NotebookOfWrong(int a, int b,struct Problem *p);
     for (i = 0; i < 10; i++)
     {
         printf("\n-----------------------------------------------------------------------------\nYou grade is %d now\nproblem %d :   \n", p->grade, i + 1);
@@ -79,9 +81,9 @@ void GetGrade(struct Problem *p)
             }
             else if (j == 2)
             {
-                if (p->fp)
-                    NotebookOfWrong(p->problem[i][0], p->problem[i][1], p);
-                printf("?????:\n%d%+d=%d\n", p->problem[i][0], p->problem[i][1], p->problem[i][0] + p->problem[i][1]);
+                 if (p->fp)
+                    NotebookOfWrong(p->problem[i][0], p->problem[i][1],p);
+                printf("正确答案为:\n%d%+d=%d\n", p->problem[i][0], p->problem[i][1], p->problem[i][0] + p->problem[i][1]);\
             }
             WrongOrCorrect(1);
         }
@@ -131,15 +133,15 @@ void File(struct Problem *p, int x)
 {
     if (x)
     {
-        p->fp = fopen("???.txt", "a");
+        p->fp = fopen("错题本.txt", "a");
         if (p->fp)
         {
-            printf("????????(???????\"???.txt\"\n");
-            fprintf(p->fp, "???????\n");
+            printf("错题本功能已开启(存储在同目录下\"错题本.txt\"\n");
+            fprintf(p->fp,"下面是你的错题\n");
         }
         else
         {
-            printf("???????\n,???????\n");
+            printf("无法打开错题本\n,改功能自动关闭\n");
         }
     }
     else
@@ -148,8 +150,8 @@ void File(struct Problem *p, int x)
     }
 }
 
-void NotebookOfWrong(int a, int b, struct Problem *p)
+void NotebookOfWrong(int a, int b,struct Problem *p)
 {
-    printf("????????\n");
-    fprintf(p->fp, "%d%+d=%d\n", a, b, a + b);
+    printf("该题已加入错题本\n");
+    fprintf(p->fp,"%d%+d=%d\n", a, b, a + b);
 }
