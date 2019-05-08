@@ -3,8 +3,9 @@ Copyright (c) <year> <copyright holders>
 
 "Anti 996" License Version 1.0 (Draft)
 
-"Anti 996" License Version 1.0
+Permission is hereby granted to any individual or legal entity
 obtaining a copy of this licensed work (including the source code,
+documentation and/or related items, hereinafter collectively referred
 to as the "licensed work"), free of charge, to deal with the licensed
 work for any purpose, including without limitation, the rights to use,
 reproduce, modify, prepare derivative works of, distribute, publish
