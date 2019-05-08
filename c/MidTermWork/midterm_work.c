@@ -20,10 +20,8 @@ https://github.com/996icu/996.ICU/blob/master/LICENSE"
 
 #define RANDOM(x) (rand() % x)
 
-struct Problem *GetProblem(struct Problem *);
-void GetGrade(struct Problem *);
-void File(struct Problem *, int);
-void End(struct Problem *);
+#define random(x) (rand() % x)
+//#define scanf scanf_s//Èô±¨´íÇë×¢ÊÍ
 
 struct Problem
 {
