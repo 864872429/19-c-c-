@@ -1,15 +1,6 @@
 <head style="background-color:powderblue;">
 <meta charset="utf-8">
 </head>
-<h3>该作业有3个文件</h3>
-<p>分别是:<br>
-  main.c(main函数)<br>
-  problem.c(实现功能函数)  <br>
-  Problem.h(实现功能函数声明)<br>
-<h4>需要放在一个工程里进行编译</h4>
-<h3>如果您觉得三个文件过于麻烦,可以只看单文件版</h3>
-  midterm_work.c(把上面三个的所有代码放在一个文件里)<br>
-</p>
 <pre>
 <h1>附机械类1804期中大作业要求:  </h1>
 <h2>一、课题要求：</h2>  

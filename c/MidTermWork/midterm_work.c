@@ -1,9 +1,7 @@
 /****************************************************
-
 Copyright (c) <2019> <copyright holders:lumanke>
 
 "Anti 996" License Version 1.0
-https://github.com/996icu/996.ICU/blob/master/LICENSE"
 
 @Version:4.0(c)
 @Author:lumanke
@@ -11,7 +9,6 @@ https://github.com/996icu/996.ICU/blob/master/LICENSE"
 @Description:Midterm work
 @Date: 2019-03-01 20:44:11
 @LastEditTime: 2019-05-08 19:08:11
-4
 ****************************************************/
 
 #include <stdio.h>
@@ -22,14 +19,12 @@ https://github.com/996icu/996.ICU/blob/master/LICENSE"
 
 struct Problem * GetProblem(struct Problem *);
 void GetGrade(struct Problem *);
-void File(struct Problem *, int);
 void End(struct Problem *);
 
 struct Problem
 {
     int problem[10][2];
     int grade;
-    FILE *fp;
 };
 
 int main()
@@ -40,7 +35,6 @@ int main()
     {
         student.grade = 0;
         system("cls");
-        File(&student, 1);
         GetGrade(GetProblem(&student));
         End(&student);
     }
@@ -64,7 +58,6 @@ void GetGrade(struct Problem *p)
 {
     int i, j, answer;
     void WrongOrCorrect(int);
-    void NotebookOfWrong(int a, int b,struct Problem *p);
     for (i = 0; i < 10; i++)
     {
         printf("\n-----------------------------------------------------------------------------\nYou grade is %d now\nproblem %d :   \n", p->grade, i + 1);
@@ -81,8 +74,6 @@ void GetGrade(struct Problem *p)
             }
             else if (j == 2)
             {
-                 if (p->fp)
-                    NotebookOfWrong(p->problem[i][0], p->problem[i][1],p);
                 printf("正确答案为:\n%d%+d=%d\n", p->problem[i][0], p->problem[i][1], p->problem[i][0] + p->problem[i][1]);\
             }
             WrongOrCorrect(1);
@@ -115,9 +106,8 @@ void End(struct Problem *p)
     printf("would you like try again(y/n)\n");
     fflush(stdin);
     i = getchar();
-    if (i == 'N' | 'n')
+    if (i == 'N'||i == 'n')
     {
-        File(p, 0);
         exit(0);
     }
 }
@@ -129,29 +119,3 @@ void WrongOrCorrect(int i)
     puts(*(put + RANDOM(4) + i * 4));
 }
 
-void File(struct Problem *p, int x)
-{
-    if (x)
-    {
-        p->fp = fopen("错题本.txt", "a");
-        if (p->fp)
-        {
-            printf("错题本功能已开启(存储在同目录下\"错题本.txt\"\n");
-            fprintf(p->fp,"下面是你的错题\n");
-        }
-        else
-        {
-            printf("无法打开错题本\n,改功能自动关闭\n");
-        }
-    }
-    else
-    {
-        fclose(p->fp);
-    }
-}
-
-void NotebookOfWrong(int a, int b,struct Problem *p)
-{
-    printf("该题已加入错题本\n");
-    fprintf(p->fp,"%d%+d=%d\n", a, b, a + b);
-}
