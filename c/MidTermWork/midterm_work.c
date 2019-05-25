@@ -17,19 +17,19 @@ Copyright (c) <2019> <copyright holders:lumanke>
 
 #define RANDOM(x) (rand() % x)
 
-struct Problem * GetProblem(struct Problem *);
-void GetGrade(struct Problem *);
-void End(struct Problem *);
-
-struct Problem
+typedef struct 
 {
     int problem[10][2];
     int grade;
-};
+}Problem;
+
+Problem * GetProblem(Problem *);
+void GetGrade(Problem *);
+void End(Problem *);
 
 int main()
 {
-    struct Problem student;
+    Problem student;
     srand((int)time(NULL));
     while (1)
     {
@@ -40,7 +40,7 @@ int main()
     }
 }
 
-struct Problem * GetProblem(struct Problem *p)
+Problem * GetProblem(Problem *p)
 {
     int i = 0;
     while (i < 10)
@@ -54,7 +54,7 @@ struct Problem * GetProblem(struct Problem *p)
     return p;
 }
 
-void GetGrade(struct Problem *p)
+void GetGrade(Problem *p)
 {
     int i, j, answer;
     void WrongOrCorrect(int);
@@ -81,7 +81,7 @@ void GetGrade(struct Problem *p)
     }
 }
 
-void End(struct Problem *p)
+void End(Problem *p)
 {
     char i;
     printf("-----------------------------------------------------------------------------\n-----------------------------------------------------------------------------\nyou grade is %d\n", p->grade);
@@ -118,4 +118,3 @@ void WrongOrCorrect(int i)
                     "No.Don't give up!", "Not correct.Keep trying.", "No.Please try again."};
     puts(*(put + RANDOM(4) + i * 4));
 }
-
