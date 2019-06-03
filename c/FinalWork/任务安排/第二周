@@ -1,0 +1,66 @@
+- ## 时间
+
+  2019年5月31号-2019年5月7号
+
+- ## 任务
+
+- ###### 1. 排序函数 void order(User u[],Admin a[],int usize,int asize):
+
+  - 参数为存储用户和管理员的结构体数组和对应大小。
+  - 将结构体数组admin和user的按姓名（name成员）的首字母顺序排序，结果存储在原数组。
+
+- ###### 2. 显示函数 void display(User u[],Admin a[],int usize,int asize):
+
+  - 遍历结构体数组admin和user，将姓名、ID 号、基本工资、岗位津贴、医疗保险。显示在屏幕上。
+
+- ###### 3. 重构菜单函数 void menu():
+
+  - 在上一菜单的基础上。
+  - 增加函数menu2用来表示管理员菜单。
+  - 设计相应的内容，管理员能增删改查，用户只能看。
+
+- ###### 4.  重构用户登入函数void login（User u[],Admin a[],int usize,int asize）:
+
+  - 1. 在上一菜单的基础上  
+  - 2. 输入与两个结构体数组admin和user中的name和password进行对比
+  - 3. 若符合与admin中成员匹配，调用函数menu2，若与uesr成员匹配则调用函数menu
+
+- ###### 5.文件读取解密并写入结构体数组
+
+
+
+备注：
+
+程序刚开始运行时，首先从文件中读取数据，解密后写入结构体user和admin，结构体如下：
+
+typedef struct  //存储员工信息的链表
+
+{
+
+​    char id[20];
+
+​    char password[30];
+
+​    char name[30];
+
+​    double salary, subsidies, medicare;    
+
+}User;
+
+ 
+
+typedef struct  //存储管理员信息
+
+{
+
+​    char id[20];
+
+​    char password[20];
+
+​    char name[20];
+
+​    double salary, subsidies, medicare;  
+
+}Admin;
+
+程序运行结束后将结构体写回文件
