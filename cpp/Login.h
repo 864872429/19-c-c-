@@ -16,9 +16,4 @@ private:
 	vector<Admin> teacher_data;
 };
 
-
-
-
-
-#endif
 #endif
