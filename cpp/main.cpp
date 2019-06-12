@@ -1,17 +1,13 @@
-#include "Fileoperation.h"
+#include "Question.h"
 
 //void display(vector<User> , vector<Admin> , vector<Report> , vector<Problem>);//这是一个测试函数，测试数据是否正确读取
 
 int main()
 {
-	Fileoperation test;   //在构造函数时会从文件中读取数据存入结构体数组
-	vector<User> student_data= test.get_student_data();//使用getstudent_data和getteacher_data函数获取存有文件数据的结构体数组
-	vector<Admin> teacher_data= test.get_teacher_data();
-	vector<Report> report_data = test.get_report_data();
-	vector<Problem> problem_data = test.get_problem_data();
-//	display( student_data,teacher_data, report_data, problem_data);
-	test.set_student_data(student_data);//可用setstudent_data函数将更改的数据写回文件
-	test.set_teacher_data(teacher_data);
+	Question_student test;
+	test.setuser("S0001");
+	test.submit_report();
+	test.submit_problem();
 	return 0;
 }
 
