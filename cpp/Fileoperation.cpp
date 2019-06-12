@@ -25,6 +25,38 @@ vector<Problem>& Fileoperation::get_problem_data()
 	return problem_data;
 }
 
+User& Fileoperation::get_student_data(const string& temp)
+{
+	int i;
+	for (i = 0; i <= student_data.size(); i++)
+		if (student_data[i].student_num == temp)
+			break;
+	if (i == student_data.size())
+	{
+		cout << "找不到该学生";
+		system("puase");
+		return;
+	}
+	else
+		return student_data[i];
+}
+
+void Fileoperation::set_student_data(const User& temp)
+{
+	int i;
+	for (i = 0; i <= student_data.size(); i++)
+		if (student_data[i].student_num == temp.student_num)
+			break;
+	if (i == student_data.size())
+	{
+		cout << "找不到该学生";
+		system("puase");
+		return;
+	}
+	else
+		student_data[i] = temp;
+}
+
 void Fileoperation::set_student_data(const vector<User>& temp)
 {
 	student_data = temp;

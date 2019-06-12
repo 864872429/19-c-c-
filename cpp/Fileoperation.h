@@ -60,11 +60,13 @@ public:
 	vector<Admin>& get_teacher_data();
 	vector<Report>& get_report_data();
 	vector<Problem>& get_problem_data();
+	User& get_student_data(const string&);
 
-	void set_student_data(const vector<User>&temp);
-	void set_teacher_data(const vector<Admin>&temp);
-	void set_report_data(const vector<Report>&temp);
-	void set_problem_data(const vector<Problem>&temp);
+	void set_student_data(const User&);
+	void set_student_data(const vector<User>&);
+	void set_teacher_data(const vector<Admin>&);
+	void set_report_data(const vector<Report>&);
+	void set_problem_data(const vector<Problem>&);
 
 
 	void fileWrite(int);//输入0-15;1-学生，2-老师，4-报告，8-选题。
