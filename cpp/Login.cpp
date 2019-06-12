@@ -4,22 +4,20 @@ Login::Login()
 {
 	student_data = file.get_student_data();
 	teacher_data = file.get_teacher_data();
+	string input_name;
+	string input_password;
 	while (1)
 	{
-		string input_name;
-		string input_password;
-		cout << "****************************" << endl;
-		cout << "**      ÇëÊäÈëÕËºÅ:       **" << endl;
+begin:
+		cout << "ÇëÊäÈëÕËºÅ:" ;
 		cin >> input_name;
 		for (int i = 0; i < student_data.size(); i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (input_name == student_data[i].stu_num)
+				if (input_name == student_data[i].student_num)
 				{
-					cout << "**                        **" << endl;
-					cout << "**      ÇëÊäÈëÃÜÂë:       **" << endl;
-					cout << "****************************" << endl;
+					cout << "ÇëÊäÈëÃÜÂë:" ;
 					while (1)
 					{
 						int i = 0;
@@ -28,19 +26,20 @@ Login::Login()
 						if (ch != '\n' && ch != '\r')
 						{
 							putchar('*');
-							input_password[i++] = ch;
+							input_password.push_back(ch);
 						}
 						else
+						{
+							putchar('\n');
 							break;
+						}
 					}
-					//password = student_data[i].password;
-					cin >> input_password;
 					if (input_password == student_data[i].password)
 					{
-						cout << student_data[i].name << "Welcome to student page !" << endl;
-						continue;
+						cout << student_data[i].name << "Welcome to student page !\n" << endl;
+						goto begin;
 					}
-					cout << "Password is wrong! Try again!";
+					cout << "Password is wrong! Try again!\n";
 				}
 			}
 		}
@@ -48,11 +47,9 @@ Login::Login()
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				if (input_name == teacher_data[i].tea_num)
+				if (input_name == teacher_data[i].teacher_num)
 				{
-					cout << "**                        **" << endl;
-					cout << "**      ÇëÊäÈëÃÜÂë:       **" << endl;
-					cout << "****************************" << endl;
+					cout << "ÇëÊäÈëÃÜÂë:";
 					while (1)
 					{
 						int i = 0;
@@ -61,29 +58,30 @@ Login::Login()
 						if (ch != '\n' && ch != '\r')
 						{
 							putchar('*');
-							input_password[i++] = ch;
+							input_password.push_back(ch);
 						}
 						else
+						{
+							putchar('\n');
 							break;
+						}
 					}
-					//password = teacher_data[i].password;
-					cin >> input_password;
 					if (input_password == teacher_data[i].password)
 					{
-						cout << teacher_data[i].name << "Welcome to teacher page !" << endl;
-						continue;
+						cout << teacher_data[i].name << "Welcome to teacher page !\n" << endl;
+						goto begin;
 					}
-					cout << "Password is wrong! Try again !";
+					cout << "Password is wrong! Try again !\n";
 				}
 			}
-			cout << "Userinfo is wrong! \n";
-			cout << "Please choose 1.LeadingAgain or 2.DropOut ";
-			int x;
-			cin >> x;
-			if (x == 2)
-			{
-				exit(0);
-			}
+		}
+		cout << "Userinfo is wrong! \n";
+		cout << "Please choose:\n 1.LeadingAgain \n 2.DropOut \n";
+		int x;
+		cin >> x;
+		if (x == 2)
+		{
+			exit(0);
 		}
 	}
 }
