@@ -1,8 +1,4 @@
 /****************************************************
-Copyright (c) <2019> <copyright holders:lumanke>
-
-"Anti 996" License Version 1.0
-
 @Version:4.0(c)
 @Author:lumanke
 @LastEditors: lumanke
@@ -23,7 +19,7 @@ typedef struct
     int grade;
 }Problem;
 
-Problem * GetProblem(Problem *);
+Problem* GetProblem(Problem *);
 void GetGrade(Problem *);
 void End(Problem *);
 
@@ -40,7 +36,7 @@ int main()
     }
 }
 
-Problem * GetProblem(Problem *p)
+Problem* GetProblem(Problem *p)
 {
     int i = 0;
     while (i < 10)
@@ -114,7 +110,7 @@ void End(Problem *p)
 
 void WrongOrCorrect(int i)
 {
-    char *put[8] = {"Very good!", "xcellent!", "Nice work!", "Keep up the good work!", "Wrong.Try once more.",
+    const char *put[8] = {"Very good!", "xcellent!", "Nice work!", "Keep up the good work!", "Wrong.Try once more.",
                     "No.Don't give up!", "Not correct.Keep trying.", "No.Please try again."};
     puts(*(put + RANDOM(4) + i * 4));
 }
