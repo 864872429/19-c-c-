@@ -1,19 +1,39 @@
-#include "Fileoperation.h"
-using namespace std;
+#ifndef LOGIN_H
+#define LOGIN_H
 
-#ifndef _LOGIN_H
-#define _LOGIN_H
+#include "tesk.h"
+#include "admin.h"
+#include "fileoperation.h"
+#include "ui_login.h"
 
-class Login
+namespace Ui {
+class Login;
+}
+
+class Login : public QDialog
 {
+    Q_OBJECT
+
 public:
-	Login();
-	
+    explicit Login(QWidget *parent = nullptr);
+    ~Login();
+
+private slots:
+    void on_btn_cancel_clicked();
+
+    void on_btn_ok_clicked();
+
+signals:
+    void send_login(QString,QString );
+    void send_login_admin(QString,QString );
 private:
-	
-	Fileoperation file;
-	vector<User> student_data;
-	vector<Admin> teacher_data;
+    Ui::Login *ui;
+    QString id;
+    QString name;
+    Admin admin;
+    QVector<User> student_data;
+    QVector<ADMIN> teacher_data;
+    Fileoperation file = Fileoperation::getFile();
 };
 
-#endif
+#endif // LOGIN_H

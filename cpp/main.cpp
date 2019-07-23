@@ -1,50 +1,40 @@
-#include "Question.h"
+#include "mainwindow.h"
+#include <QApplication>
+#include <QDir>
+#include <QApplication>
+#include <QDebug>
+#include <QSqlDatabase>
+#include "tesk.h"
 
-//void display(vector<User> , vector<Admin> , vector<Report> , vector<Problem>);//ÕâÊÇÒ»¸ö²âÊÔº¯Êı£¬²âÊÔÊı¾İÊÇ·ñÕıÈ·¶ÁÈ¡
+bool opendatabase();
 
-int main()
+int main(int argc, char *argv[])
 {
-	Question_student test;
-	test.setuser("S0001");
-	test.submit_report();
-	test.submit_problem();
-	return 0;
+    opendatabase();
+    cout<<QDir::currentPath();
+    QApplication a(argc, argv);
+    //Login w;
+    MainWindow w;
+    //Shop w;
+    //Donate w;
+    w.show();
+
+    return a.exec();
 }
 
-//void display(vector<User> student_data, vector<Admin> teacher_data, vector<Report> report_data, vector<Problem> problem_data)//ÕâÊÇÒ»¸ö²âÊÔº¯Êı£¬²âÊÔÊı¾İÊÇ·ñÕıÈ·¶ÁÈ¡
-//{
-//	system("cls");
-//
-//	cout << "ÏÂÃæÊÇ½ÌÊ¦ĞÅÏ¢:\n"<< "¹¤ºÅ	" << "ĞÕÃû	" << "µç»°\n";
-//	for (int i = 0; i < teacher_data.size(); i++)
-//		if (teacher_data[i].n)//n=0ÒâÎ¶×Å¸ÃÏî±»É¾³ı
-//			cout << teacher_data[i].tea_num << "	" << teacher_data[i].name << "	" << teacher_data[i].phone << endl;
-//
-//	cout << "ÏÂÃæÊÇÑ§ÉúĞÅÏ¢:\n"<< "¹¤ºÅ	" << "ĞÕÃû	" << "µç»°	" << "	Ñ¡Ìâ\n";
-//	for (int i = 0; i < student_data.size(); i++)
-//		if (student_data[i].n)//n=0ÒâÎ¶×Å¸ÃÏî±»É¾³ı
-//		{
-//			cout << student_data[i].stu_num << "	" << student_data[i].name << "	" << student_data[i].phone ;
-//				if(student_data[i].topic == "-1")
-//					cout << " " << endl;
-//				else
-//					cout<<"	"<<student_data[i].topic  << endl;
-//		}
-//	cout << "ÏÂÃæÊÇÑ§ÉúÑ¡Ìâ±¨¸æĞÅÏ¢\n"  << "ÌâºÅ	" << "Ñ¡ÌâÑ§ÉúÑ§ºÅ  " << "×´Ì¬ " << "±¨¸æÄÚÈİ\n";
-//	for (int i = 0; i < report_data.size(); i++)
-//	{		
-//		cout << report_data[i].problem_mun << "	" << report_data[i].stu_num << "      	" << report_data[i].status << "   " << report_data[i].content << endl;
-//	}
-//	cout << "ÏÂÃæÊÇÌâÄ¿ĞÅÏ¢\n" << "·¢²¼ÀÏÊ¦¹¤ºÅ	" << "ÌâºÅ	" << "ËµÃ÷		" << "×î´óÑ¡ÌâÈËÊı " << "µ±Ç°Ñ¡ÌâÈËÊı " << "É¾³ıÀíÓÉ\n";
-//	for (int i = 0; i < problem_data.size(); i++)
-//	{
-//		if (problem_data[i].status != "0")
-//		{
-//			cout << problem_data[i].tea_num << "		" << problem_data[i].munber << "	" << problem_data[i].instruction << "	" << problem_data[i].max_num << "	     " << problem_data[i].current_num;
-//			if (problem_data[i].status != "-1")
-//				cout << " " << endl;
-//			else
-//				cout << "	  	" << problem_data[i].delete_reason << endl;
-//		}
-//	}
-//}
+bool opendatabase()
+{
+    QSqlDatabase mydb=QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("c:\\mydatabase.db");//å¹³æ—¶debugæ­£å¸¸ç”¨
+    //mydb.setDatabaseName("./mydatabase.db");//ç”Ÿæˆexeç”¨
+    if(mydb.open())
+    {
+        cout<<"open success";
+        return true;
+    }
+    else
+    {
+        cout<<"open failed";
+        return false;
+    }
+}

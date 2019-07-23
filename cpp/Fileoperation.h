@@ -1,87 +1,80 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <cstdlib>
-using namespace std;
+#include "tesk.h"
 
-#ifndef _FILEOPERATION_H
-#define _FILEOPERATION_H
+#ifndef FILEOPERATION_H
+#define FILEOPERATION_H
 
-struct User                  //ÒòÎªStudent±»×÷ÎªÀàÃûÁË£¬¾Í½ĞUser°É¡£
+struct User                   //å› ä¸ºStudentè¢«ä½œä¸ºç±»åäº†ï¼Œå°±å«Userå§ã€‚
 {
-	string student_num;      //Ñ§ºÅ
-	string name;             //ĞÕÃû
-	string password;         //ÃÜÂë
-	string CLASS;            //°à¼¶£¬classÊÇ¹Ø¼ü×Ö£¬ËùÒÔ´óĞ´
-	string phone;            //µç»°
-	string topic;            //Ñ¡ÌâºÅ -1±íÊ¾Î´Ñ¡Ìâ 0±íÊ¾´ıÉóºË
-	bool n;                  //Èô±»É¾³ı£¬¸ÃÖµÎª0
-	//ÆäËûÊı¾İ´ı²¹³ä
+    QString student_num;      //å­¦å·
+    QString name;             //å§“å
+    QString password;         //å¯†ç 
+    QString CLASS;            //ç­çº§ï¼Œclassæ˜¯å…³é”®å­—ï¼Œæ‰€ä»¥å¤§å†™
+    QString phone;            //ç”µè¯
+    QString topic;            //é€‰é¢˜å· -1è¡¨ç¤ºæœªé€‰é¢˜ 0è¡¨ç¤ºå¾…å®¡æ ¸
+    QString n;                //è‹¥è¢«åˆ é™¤ï¼Œè¯¥å€¼ä¸º0
+    QString score;
+    //å…¶ä»–æ•°æ®å¾…è¡¥å……
 };
 
-struct Admin                 //ÒòÎªTeacher±»×÷ÎªÀàÃûÁË£¬¾Í½ĞAdmin°É¡£
+struct ADMIN                  //å› ä¸ºTeacherè¢«ä½œä¸ºç±»åäº†ï¼Œå°±å«ADMINå§ã€‚
 {
-	string teacher_num;      //¹¤ºÅ
-	string name;             //ĞÕÃû
-	string password;         //ÃÜÂë
-	string phone;            //µç»°
-	bool n;                  //Èô±»É¾³ı£¬¸ÃÖµÎª0
-	//ÆäËûÊı¾İ´ı²¹³ä
+    QString teacher_num;      //å·¥å·
+    QString name;             //å§“å
+    QString password;         //å¯†ç 
+    QString phone;            //ç”µè¯
+    QString n;                //è‹¥è¢«åˆ é™¤ï¼Œè¯¥å€¼ä¸º0
+    //å…¶ä»–æ•°æ®å¾…è¡¥å……
 };
 
-struct Report                //Ñ¡Ìâ±¨¸æ
+struct Report                //é€‰é¢˜æŠ¥å‘Š
 {
-	string problem_mun;      //ÌâºÅ
-	string student_num;      //Ñ¡ÌâÑ§ÉúÑ§ºÅ
-	string status;           //×´Ì¬(-2-Ñ¡ÌâÎ´Í¨¹ı -1-´ıÉóºË 0-Î´Ìá½» 1-ÒÑÌá½» 2-ÒÑÍ¨¹ı 3-±¨¸æÎ´Í¨¹ı 4-±»ÀÏÊ¦É¾³ı 5-±»É¾³ı)
-	string content;          //±¨¸æÄÚÈİ
-	//ÆäËûÊı¾İ´ı²¹³ä
+    QString problem_mun;      //é¢˜å·
+    QString student_num;      //é€‰é¢˜å­¦ç”Ÿå­¦å·
+    QString status;           //çŠ¶æ€(-2-é€‰é¢˜æœªé€šè¿‡ -1-å¾…å®¡æ ¸ 0-æœªæäº¤ 1-å·²æäº¤ 2-ç»“æŸ 4-è¢«è€å¸ˆåˆ é™¤ 5-è¢«åˆ é™¤æˆ–æœªæäº¤)
+    QString content;          //æŠ¥å‘Šå†…å®¹
+    //å…¶ä»–æ•°æ®å¾…è¡¥å……
 };
 
-struct Problem                    //ÌâÄ¿
+struct Problem                     //é¢˜ç›®
 {
-	string teacher_num;           //·¢²¼ÀÏÊ¦¹¤ºÅ
-	string problem_mun;           //ÌâºÅ
-	string instruction;           //ËµÃ÷
-	string max_num;               //×î´óÑ¡ÌâÈËÊı
-	string current_num;           //µ±Ç°Ñ¡ÌâÈËÊı
-	string status;                //Èô±»É¾³ı£¬¸ÃÖµÎª0»ò-1£¬-1±íÊ¾ÓĞÉ¾³ıÀíÓÉ
-	string delete_reason;         //É¾³ıÀíÓÉ
-	//ÆäËûÊı¾İ´ı²¹³ä
+    QString problem_num;           //é¢˜å·
+    QString instruction;           //è¯´æ˜
+    QString max_num;               //æœ€å¤§é€‰é¢˜äººæ•°
+    QString current_num;           //å½“å‰é€‰é¢˜äººæ•°
+    QString status;                //è‹¥è¢«åˆ é™¤ï¼Œè¯¥å€¼ä¸º0æˆ–-1ï¼Œ-1è¡¨ç¤ºæœ‰åˆ é™¤ç†ç”±
+    QString delete_reason;         //åˆ é™¤ç†ç”±
+    //å…¶ä»–æ•°æ®å¾…è¡¥å……
 };
 
 class Fileoperation
 {
 public:
-	Fileoperation(int = 15);
 
-	vector<User>& get_student_data();
-	vector<Admin>& get_teacher_data();
-	vector<Report>& get_report_data();
-	vector<Problem>& get_problem_data();
-	User& get_student_data(const string&);
+    static Fileoperation& getFile();
 
-	void set_student_data(const User&);
-	void set_student_data(const vector<User>&);
-	void set_teacher_data(const vector<Admin>&);
-	void set_report_data(const vector<Report>&);
-	void set_problem_data(const vector<Problem>&);
+    QVector<User>& get_student_data();
+    QVector<ADMIN>& get_teacher_data();
+    QVector<Report>& get_report_data();
+    QVector<Problem>& get_problem_data();
+    User& get_student_data(const QString&);
 
+    void set_student_data(const User&);
+    void set_student_data(const QVector<User>&);
+    void set_teacher_data(const QVector<ADMIN>&);
+    void set_report_data(const QVector<Report>&);
+    void set_problem_data(const QVector<Problem>&);
 
-	void fileWrite(int);//ÊäÈë0-15;1-Ñ§Éú£¬2-ÀÏÊ¦£¬4-±¨¸æ£¬8-Ñ¡Ìâ¡£
-	void fileRead(int); //ÊäÈë0-15;1-Ñ§Éú£¬2-ÀÏÊ¦£¬4-±¨¸æ£¬8-Ñ¡Ìâ¡£
+    void fileWrite(int);//è¾“å…¥0-15;1-å­¦ç”Ÿï¼Œ2-è€å¸ˆï¼Œ4-æŠ¥å‘Šï¼Œ8-é€‰é¢˜ã€‚
+    void fileRead(int); //è¾“å…¥0-15;1-å­¦ç”Ÿï¼Œ2-è€å¸ˆï¼Œ4-æŠ¥å‘Šï¼Œ8-é€‰é¢˜ã€‚
 
 private:
-	fstream student_file;
-	fstream teacher_file;
-	fstream report_file;
-	fstream problem_file;
-	vector<User> student_data;
-	vector<Admin> teacher_data;
-	vector<Report> report_data;
-	vector<Problem> problem_data;
+
+    Fileoperation(int = 15);
+
+    QVector<User> student_data;
+    QVector<ADMIN> teacher_data;
+    QVector<Report> report_data;
+    QVector<Problem> problem_data;
 };
 
-#endif // !Fileoperation.h
-
+#endif // FILEOPERATION_H

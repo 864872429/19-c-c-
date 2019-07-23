@@ -1,328 +1,263 @@
 #include "Question.h"
 
-Question_student::Question_student()
+
+Question::Question(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Question)
 {
-	report_data = file.get_report_data();
-	problem_data = file.get_problem_data();
+    ui->setupUi(this);
+    this->model = new QStandardItemModel;
+    // è®¾ç½®tableviewçš„headerçš„å†…å®¹
+    this->model->setHorizontalHeaderItem(0, new QStandardItem("é¢˜å·"));
+    this->model->setHorizontalHeaderItem(1, new QStandardItem("å†…å®¹"));
+    this->model->setHorizontalHeaderItem(2, new QStandardItem("æœ€å¤§äººæ•°"));
+    this->model->setHorizontalHeaderItem(3, new QStandardItem("å½“å‰äººæ•°"));
+    this->ui->tableView->setModel(model);
+    this->ui->tableView->setColumnWidth(0,180);
+    this->ui->tableView->setColumnWidth(1,190);
+    this->ui->tableView->setColumnWidth(2,200);
+    this->ui->tableView->setColumnWidth(3,200);
+    this->ui->new_con->hide();
+    this->ui->new_num->hide();
+    this->ui->new_label->hide();
+    this->ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers); 
+    displayall();
 }
 
-void Question_student::setuser(const string &x)
+void Question::on_pushButton_2_clicked()
 {
-	user = x;
+    this->close();
 }
 
-int Question_student::search_problem(const string& x) const
+void Question::on_btn_query_clicked()
 {
-	for (int i = 0; i < problem_data.size(); i++)
-		if (problem_data[i].problem_mun == x)
-			return i;
-	return -1;
+    clearall();
+    setGetData();
+    QString content = this->ui->le_content->text();
+    int index = this->ui->comboBox->currentIndex();
+    int row = 0;
+    for(int i=0;i<problem_data.size();i++)
+    {
+        if(problem_data[i].status=="1")
+        {
+            switch(index)
+            {
+            case 0:
+                if(content==problem_data[i].problem_num)
+                    display(row++,problem_data[i]);
+                break;
+            case 1:
+                if(content==problem_data[i].instruction)
+                    display(row++,problem_data[i]);
+                break;
+            case 2:
+                if(content==problem_data[i].max_num)
+                    display(row++,problem_data[i]);
+                break;
+            case 3:
+                if(content==problem_data[i].current_num)
+                    display(row++,problem_data[i]);
+                break;
+            }
+        }
+    }
+    if (row == 0)
+    {
+        QMessageBox::information(this,"é”™è¯¯","æŸ¥è¯¢ä¸åˆ°ç¬¦åˆè¦æ±‚çš„é¢˜ç›®","ç¡®è®¤");
+        displayall();
+        return;
+    }
 }
 
-int Question_student::search_report() const
+void Question::setGetData(const int x)//0-read,1-write
 {
-	for (int i = 0; i < report_data.size(); i++)
-		if (report_data[i].student_num== user&& report_data[i].status!="5")
-			return i;
-	return -1;
+    if(x)
+    {
+        file.set_student_data(student_data);
+        file.set_report_data(report_data);
+        file.set_problem_data(problem_data);
+    }
+    else
+    {
+        student_data=file.get_student_data();
+        report_data=file.get_report_data();
+        problem_data=file.get_problem_data();
+    }
 }
 
-void Question_student::submit_problem()
+void Question::displayall()
 {
-	int i = search_report();
-	if ( i != -1)
-	{
-		if (report_data[i].status == "2")
-		{
-			cout << "Äúµ±Ç°ÒÑÓĞÑ¡Ìâ£¬ÇÒ±¨¸æÒÑÍ¨¹ı£¬ÎŞ·¨¸ü¸ÄÑ¡Ìâ";
-			system("pause");
-			return;
-		}
-		else if (report_data[i].status == "4")
-		{
-			cout << "Äúµ±Ç°Ñ¡Ìâ±»ÀÏÊ¦É¾³ı£¬ÇëÖØÑ¡\n";
-			DELETE(i);
-		}
-		else if (report_data[i].status == "-2")
-		{
-			cout << "Äúµ±Ç°Ñ¡ÌâÎ´Í¨¹ı£¬ÇëÖØÑ¡\n";
-			DELETE(i);
-		}
-		else
-		{
-			cout << "Äúµ±Ç°ÒÑÓĞÑ¡Ìâ£¬´¦ÓÚ";
-			switch (stoi(report_data[i].status))
-			{
-			case -1:cout << "´ıÉóºË"; break;
-			case 0:cout << "Î´Ìá½»"; break;
-			case 1:cout << "ÒÑÌá½»"; break; 
-			case 2:cout << "ÒÑÍ¨¹ı"; break;
-			case 3:cout << "Î´Í¨¹ı"; break;
-			}
-			cout << "×´Ì¬\n" << "ÄúÏëÒª¸ü¸ÄÑ¡ÌâÂğ£¿£¨y/n£©";
-			char ch;
-			cin >> ch;
-			if (ch != 'y' && ch != 'Y')
-				return;
-			else
-				DELETE(i);
-		}
-	}
-	while (1)
-	{
-		display_problem();
-		Report temp;
-		temp.student_num = user;
-		temp.status = "-1";
-		temp.content = "   ";
-		cout << "ÇëÊäÈëÏëÑ¡µÄÌâºÅ£¨Ö±½ÓÊäÈë-1ÍË³ö£©£º";
-		getline(cin, temp.problem_mun);
-		if (temp.problem_mun == "-1")
-			return;
-		if(search_problem(temp.problem_mun)==-1)
-		{
-			cout << "ÊäÈëÎŞĞ§£¬ÇëÖØÊÔ\n";
-			system("pause");
-		}
-		else if (problem_data[search_problem(temp.problem_mun)].max_num > problem_data[search_problem(temp.problem_mun)].current_num)
-		{
-			problem_data[search_problem(temp.problem_mun)].current_num//Ñ¡ÌâÈËÊı¼Ó1
-		    = to_string(stoi(problem_data[search_problem(temp.problem_mun)].current_num)+1);
-			report_data.push_back(temp);
-			file.set_report_data(report_data);
-			file.set_problem_data(problem_data);
-			cout << "Ñ¡Ìâ³É¹¦£¬µÈ´ıÀÏÊ¦ÉóºË\n";
-			system("pause");
-			return;
-		}
-	}
+   setGetData();
+   int m=0;
+   for(int i=0;i<problem_data.size();i++)
+   {
+       if(problem_data[i].status=="1")
+       {
+            display(m,problem_data[i]);
+            m++;
+       }
+   }
+   this->ui->tableView->setColumnWidth(0,180);
+   this->ui->tableView->setColumnWidth(1,190);
+   this->ui->tableView->setColumnWidth(2,200);
+   this->ui->tableView->setColumnWidth(3,200);
 }
 
-void Question_student::submit_report()
+void Question::display(const int row, const Problem &temp) const
 {
-	int i = search_report();
-	if (i == -1)
-	{
-		cout << "Äúµ±Ç°Ã»ÓĞÑ¡Ìâ£¬¸Ï½ôÑ¡ÌâÑ½ÀÏÌú\n";
-		system("pause");
-		return;
-	}
-	else
-	{
-		cout << "ÏÂÃæÊÇÄúÄ¿Ç°µÄÑ¡Ìâ£º\n";
-		cout << "ÌâºÅ£º" << report_data[i].problem_mun << endl;
-		if (report_data[i].status == "-2")
-		{
-			cout << "¸ÃÑ¡ÌâÇëÇóÎ´Í¨¹ıÉóºË£¬ÇëÖØĞÂÑ¡Ìâ\n";
-			system("pause");
-			return;
-		}
-		else if (report_data[i].status == "-1")
-		{
-			cout << "¸ÃÑ¡ÌâÇëÇóÕıÔÚÉóºËÖĞ\n";
-			system("pause");
-			return;
-		}
-		if (report_data[i].status == "0")
-		{
-			cout << "Ñ¡ÌâÇëÇóÒÑÍ¨¹ı£¬ÇëÊäÈë±¨¸æ£¨ÇëÔÚÒ»ĞĞÄÚÊäÈë£¬»Ø³µ½áÊø£¬Ö±½ÓÊäÈë-1È¡Ïû£©\n";
-			string x;
-			getline(cin, x);
-			if (x == "-1")
-				return;
-			report_data[i].content = x;
-			report_data[i].status = "1";
-			file.set_report_data(report_data);
-			cout << "Ìá½»³É¹¦£¡\n";
-			return;
-		}
-		if(report_data[i].status == "1")
-		{
-			cout << "ÄÚÈİ£º" << report_data[i].content << endl;
-			cout << "Ñ¡Ìâ±¨¸æÕıÔÚÉóºËÖĞ\n"
-			 << "\nÊäÈë- 1¸ü¸Ä,ÊäÈëÈÎÒâ¼ü¼ÌĞø\n";
-			string x;
-			getline(cin, x);
-			if (x != "-1")
-				return;
-			getline(cin, x);
-			report_data[i].content = x;
-			report_data[i].status = "1";
-			file.set_report_data(report_data);
-			cout << "Ìá½»³É¹¦£¡\n";
-			system("pause");
-			return;
-		}
-		if (report_data[i].status == "2")
-		{
-			cout << "ÄúµÄÑ¡Ìâ±¨¸æÒÑÍ¨¹ı£¬ÎŞĞèĞŞ¸Ä£¡\n";
-			system("pause");
-		}
-		if (report_data[i].status == "3")
-		{
-			cout << "ÄÚÈİ£º" << report_data[i].content << endl;
-			cout << "Ñ¡Ìâ±¨¸æÎ´Í¨¹ı£¬¿É¸ü¸ÄÖØÊÔ»òÖØĞÂÑ¡Ìâ£¬ÊäÈë- 1¸ü¸Ä,ÊäÈëÈÎÒâ¼ü¼ÌĞø\n";
-			string x;
-			getline(cin, x);
-			if (x != "-1")
-				return;
-			getline(cin, x);
-			report_data[i].content = x;
-			report_data[i].status = "1";
-			file.set_report_data(report_data);
-			report_data[i].status = "1";
-			cout << "Ìá½»³É¹¦£¡\n";
-			system("pause");
-			return;
-		}
-		if (report_data[i].status == "4")
-		{
-			cout << "ÄúµÄÑ¡Ìâ±»ÀÏÊ¦É¾³ı£¬ÀíÓÉÎª£º\n" << problem_data[search_problem(report_data[i].problem_mun)].delete_reason
-				<<endl<<"ÇëÖØĞÂÑ¡Ìâ\n";
-			system("pause");
-		}
-	}
+    this->model->setItem(row, 0,new QStandardItem(temp.problem_num));
+    this->model->item(row,0)->setTextAlignment(Qt::AlignCenter);
+    this->model->setItem(row, 1,new QStandardItem(temp.instruction));
+    this->model->item(row,1)->setTextAlignment(Qt::AlignCenter);
+    this->model->setItem(row, 2,new QStandardItem(temp.max_num));
+    this->model->item(row,2)->setTextAlignment(Qt::AlignCenter);
+    this->model->setItem(row, 3,new QStandardItem(temp.current_num));
+    this->model->item(row,3)->setTextAlignment(Qt::AlignCenter);
 }
 
-void Question_student::DELETE(int i)
+//æ¸…é™¤tableview å½“ä¸­çš„æ‰€æœ‰çš„æ•°æ®
+void Question::clearall() const
 {
-	problem_data[search_problem(report_data[i].problem_mun)].current_num//Ñ¡ÌâÈËÊı¼õ1
-	= to_string(stoi(problem_data[search_problem(report_data[i].problem_mun)].current_num)-1);
-	report_data[i].status = '5';
-	file.set_problem_data(problem_data);
-	file.set_report_data(report_data);
+    for(int i = 0;i<problem_data.size();i++)
+    {
+        this->model->removeRow(i);
+    }
 }
 
 
-void Question_student::display_problem() const
+void Question::on_pushButton_clicked()
 {
-	system("cls");
-	cout << "µ±Ç°ÓĞÒÔÏÂÑ¡Ìâ¿ÉÑ¡£º\n" << "ÌâºÅ	" << "·¢²¼ÀÏÊ¦¹¤ºÅ	"  << "ËµÃ÷		" << "×î´óÑ¡ÌâÈËÊı " << "µ±Ç°Ñ¡ÌâÈËÊı\n";
-	for (int i = 0; i < problem_data.size(); i++)
-		if (problem_data[i].status != "0"&& problem_data[i].status != "-1"&& problem_data[i].max_num>problem_data[i].current_num)
-			cout << problem_data[i].problem_mun << "	" << problem_data[i].teacher_num << "		" << problem_data[i].instruction << "	" << problem_data[i].max_num << "	     " << problem_data[i].current_num<<endl;
+    add_problem.show();
+    add_problem.exec();
+    displayall();
 }
 
-Question_teacher::Question_teacher()
+void Question::on_CHANGE_clicked()
 {
-	report_data = file.get_report_data();
-	problem_data = file.get_problem_data();
+    for(int i=0;i<problem_data.size();i++)
+        if(problem_data[i].problem_num==problem_id&&problem_data[i].status=="1")
+        {
+            this->ui->new_num->setPlaceholderText("è¯·è¾“å…¥æ–°äººæ•°");
+            this->ui->new_con->show();
+            this->ui->new_num->show();
+            this->ui->new_label->show();
+            this->ui->DELET->hide();
+            this->ui->CHANGE->hide();
+            flag=1;
+            return;
+        }
+    QMessageBox::information(this, "å¤±è´¥","æ²¡æ‰¾åˆ°@_@","ç¡®è®¤");
+    displayall();
 }
 
-void Question_teacher::setuser(const string& x)
+void Question::on_DELET_clicked()
 {
-	user = x;
+    for(int i=0;i<problem_data.size();i++)
+        if(problem_data[i].problem_num==problem_id&&problem_data[i].status=="1")
+        {
+            if(problem_data[i].current_num=="0")
+            {
+                problem_data[i].status="0";
+                QMessageBox::information(this, "æˆåŠŸ","æˆåŠŸ^_^","ç¡®è®¤");
+                setGetData(1);
+                clearall();
+                displayall();
+                return;
+            }
+            else
+            {
+                this->ui->new_num->setPlaceholderText("è¯·è¾“å…¥åˆ é™¤ç†ç”±");
+                this->ui->new_con->show();
+                this->ui->new_num->show();
+                this->ui->DELET->hide();
+                this->ui->CHANGE->hide();
+                flag=2;
+                displayall();
+                return;
+            }
+        }
+    QMessageBox::information(this, "å¤±è´¥","æ²¡æ‰¾åˆ°@_@","ç¡®è®¤");
+    displayall();
 }
 
-int Question_teacher::search_problem(const string& x) const
+void Question::on_new_con_clicked()
 {
-	for (int i = 0; i < problem_data.size(); i++)
-		if (problem_data[i].problem_mun == x)
-			return i;
-	return -1;
+    QString str2=this->ui->new_num->text();
+    if(flag==1)
+    {
+        for(int i=0;i<str2.length();i++)
+            if(str2[i]>'9'||str2[i]<'0')
+            {
+                QMessageBox::information(this, "å¤±è´¥","è¯·è¾“å…¥æ­£ç¡®çš„æ•°å­—","ç¡®è®¤");
+                this->ui->new_con->hide();
+                this->ui->new_num->hide();
+                this->ui->DELET->show();
+                this->ui->CHANGE->show();
+                this->ui->new_num->clear();
+                this->ui->new_label->hide();
+                return;
+            }
+        for(int i=0;i<problem_data.size();i++)
+            if(problem_data[i].problem_num==problem_id&&problem_data[i].status=="1")
+            {
+                if (problem_data[i].current_num.toInt()>str2.toInt()-1)
+                {
+                     QMessageBox::information(this, "å¤±è´¥","è¯·è¾“å…¥æ— æ³•è®¾ç½®ä¸ºè¿™ä¸ªäººæ•°","ç¡®è®¤");
+                     this->ui->new_con->hide();
+                     this->ui->new_num->hide();
+                     this->ui->DELET->show();
+                     this->ui->CHANGE->show();
+                     this->ui->new_num->clear();
+                     this->ui->new_label->hide();
+                     return;
+                }
+                problem_data[i].max_num=str2;
+                this->ui->new_con->hide();
+                this->ui->new_num->hide();
+                this->ui->DELET->show();
+                this->ui->CHANGE->show();
+                this->ui->new_num->clear();
+                this->ui->new_label->hide();
+                setGetData(1);
+                displayall();
+                return;
+            }
+    }
+    else
+    {
+        for(int i=0;i<problem_data.size();i++)
+            if(problem_data[i].problem_num==problem_id&&problem_data[i].status=="1")
+            {
+                if(str2.isEmpty())
+                {
+                    QMessageBox::information(this, "å¤±è´¥","è¯·è¾“å…¥åˆ é™¤ç†ç”±","ç¡®è®¤");
+                    this->ui->new_con->hide();
+                    this->ui->new_num->hide();
+                    this->ui->new_label->hide();
+                    this->ui->DELET->show();
+                    this->ui->CHANGE->show();
+                    this->ui->new_num->clear();
+                    return;
+                }
+                problem_data[i].delete_reason=str2;
+                problem_data[i].status="-1";
+                this->ui->new_con->hide();
+                this->ui->new_num->hide();
+                this->ui->DELET->show();
+                this->ui->CHANGE->show();
+                this->ui->new_num->clear();
+                this->ui->new_label->hide();
+                setGetData(1);
+                displayall();
+                return;
+            }
+    }
+
 }
 
-int Question_teacher::search_report(const string& x) const
+void Question::on_tableView_clicked(const QModelIndex &index)
 {
-	for (int i = 0; i < report_data.size(); i++)
-		if (report_data[i].problem_mun ==x && report_data[i].status != "5")
-			return i;
-	return -1;
-}
-
-
-
-void Question_teacher::create_problem()
-{
-	Problem temp;
-	temp.teacher_num = user;
-	cout << "ÇëÊäÈëÌâºÅ£º";
-	getline(cin, temp.problem_mun);
-	cout << "ÇëÊäÈëÌâÄ¿ËµÃ÷";
-	getline(cin, temp.instruction);
-	cout << "ÇëÊäÈë×î´óÑ¡ÌâÈËÊı";
-	getline(cin, temp.max_num);
-	temp.current_num = "0";
-	temp.delete_reason = "";
-	temp.status = "1";
-	problem_data.push_back(temp);
-	file.set_problem_data(problem_data);
-	cout << "ÌâÄ¿·¢²¼³É¹¦£¡";
-}
-
-
-void Question_teacher::review_problem()
-{
-	cout << "µ±Ç°ÓĞÒÔÏÂ´ıÉóºËÑ¡Ìâ£º\n" << "ÌâºÅ Ñ§ÉúÑ§ºÅ 	ÌâÄ¿ËµÃ÷	µ±Ç°Ñ¡ÌâÈËÊı	";
-	for (int i = 0; i < report_data.size(); i++)
-		if (report_data[i].status == "-1")
-		{
-			cout << report_data[i].problem_mun << "	" << report_data[i].student_num << "	"
-				<< problem_data[search_problem(report_data[i].problem_mun)].instruction << ""
-				<< problem_data[search_problem(report_data[i].problem_mun)].current_num << endl;
-
-		}
-	string x;
-	while (1)
-	{
-		cout << "ÇëÑ¡ÔñÒª²Ù×÷µÄÌâºÅ(Ö±½ÓÊäÈë-1ÍË³ö)£º";
-		cin >> x;
-		if (x == "-1")
-			return;
-		if (report_data[search_report(x)].status == "-1")
-			break;
-		cout << "ÊäÈëÎŞĞ§ÇëÖØÊÔ";
-	}
-	system("cls");
-	while (1)
-	{
-		int temp;
-		cout << "Äúµ±Ç°Ñ¡Ôñ" << x << "Ìâ£¬ÇëÊäÈëÄãÏë½øĞĞµÄ²Ù×÷£º\n" << "1.Í¬ÒâÑ¡Ìâ \n" << "2.²»Í¬ÒâÑ¡Ìâ"
-			<< "3.ÍË³ö";
-		cin >> temp;
-		switch (temp)
-		{
-		case 1:report_data[search_report(x)].status = "0"; file.set_report_data(report_data); return;
-		case 2:report_data[search_report(x)].status = "-2"; file.set_report_data(report_data); return;
-		case 3: return;
-		}
-	}
-}
-
-void Question_teacher::review_report()
-{
-	cout << "µ±Ç°ÓĞÒÔÏÂ´ıÉóºË±¨¸æ£º\n" << "ÌâºÅ Ñ§ÉúÑ§ºÅ 	ÌâÄ¿ËµÃ÷	µ±Ç°Ñ¡ÌâÈËÊı	";
-	for (int i = 0; i < report_data.size(); i++)
-		if (report_data[i].status == "1")
-		{
-			cout << report_data[i].problem_mun << "	" << report_data[i].student_num << "	"
-				<< problem_data[search_problem(report_data[i].problem_mun)].instruction << ""
-				<< problem_data[search_problem(report_data[i].problem_mun)].current_num << endl;
-
-		}
-	string x;
-	while (1)
-	{
-		cout << "ÇëÑ¡ÔñÒª²Ù×÷µÄÌâºÅ(Ö±½ÓÊäÈë-1ÍË³ö)£º";
-		cin >> x;
-		if (x == "-1")
-			return;
-		if (report_data[search_report(x)].status == "1")
-			break;
-		cout << "ÊäÈëÎŞĞ§ÇëÖØÊÔ";
-	}
-	system("cls");
-	while (1)
-	{
-		int temp;
-		cout << "Äúµ±Ç°Ñ¡Ôñ" << x << "Ìâ£¬ÇëÊäÈëÄãÏë½øĞĞµÄ²Ù×÷£º\n" << "1.Í¨¹ı±¨¸æ \n" << "2.²»Í¨¹ı±¨¸æ"
-			<< "3.ÍË³ö";
-		cin >> temp;
-		switch (temp)
-		{
-		case 1:report_data[search_report(x)].status = "2"; file.set_report_data(report_data); return;
-		case 2:report_data[search_report(x)].status = "3"; file.set_report_data(report_data); return;
-		case 3: return;
-		}
-	}
+    QAbstractItemModel *modessl = ui->tableView->model();
+    int curRow  = index.row();
+    problem_id=modessl->data( modessl->index(curRow,0)).toString();
 }

@@ -1,54 +1,52 @@
+#ifndef QUESTION_H
+#define QUESTION_H
+
+#include "tesk.h"
+#include "ui_Question.h"
 #include "Fileoperation.h"
-#ifndef _QUESTION_H
-#define _QUESTION_H
+#include "add_problem.h"
 
-class Question
+namespace Ui {
+class Question;
+}
+
+class Question : public QDialog
 {
+    Q_OBJECT
 
-//打算在这里放这些，然后继承，有时间就写
-/*public:
-	void setuser(const string&);             
-	int search_problem(const string&) const;
-	int search_report(const string&) const;         */   
-};
-
-
-class Question_student :public Question
-{
 public:
-	Question_student();    
-	void setuser(const string&);             //输入登入用户
-	int search_problem(const string&) const;//输入题号返回题目在二维数组的位置
-	int search_report() const;              //根据学生用户名返回选题在二维数组的位置
-	void submit_problem();                  //学生提交选题
-	void submit_report();                   //学生提交报告
-	void DELETE(int);                       //学生删除某个报告（更改选题时）
-	void display_problem()const;                 //显示所有可用选题选题
+    explicit Question(QWidget *parent = nullptr);
+    void display(const int row,const Problem&) const;
+    void clearall() const;
+    void displayall();
+    void setGetData(const int = 0);
+private slots:
+    void on_pushButton_2_clicked();
+
+    void on_btn_query_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_DELET_clicked();
+
+    void on_CHANGE_clicked();
+
+    void on_new_con_clicked();    
+
+    void on_tableView_clicked(const QModelIndex &index);
+
+signals:
 
 private:
-	Fileoperation file;
-	vector<Report> report_data;
-	vector<Problem> problem_data;
-	string user;
+    int flag;
+    Add_problem add_problem;
+    Ui::Question *ui;
+    QStandardItemModel *model;
+    QVector<User> student_data;
+    QVector<Report> report_data;
+    QVector<Problem> problem_data;
+    Fileoperation file = Fileoperation::getFile();
+    QString problem_id;
 };
 
-class Question_teacher :public Question
-{
-public:
-	Question_teacher();
-	void setuser(const string&);             //输入登入用户
-	int search_problem(const string&) const; //输入题号返回题目在二维数组的位置
-	int search_report(const string&) const;
-	void create_problem();                  //老师发布选题
-	void review_problem();                  //老师审核选题
-	void review_report();                   //老师审核报告
-
-private:
-	Fileoperation file;
-	vector<Report> report_data;
-	vector<Problem> problem_data;
-	string user;
-};
-
-#endif
-
+#endif // SHOP_H
