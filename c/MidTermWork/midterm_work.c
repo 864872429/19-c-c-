@@ -31,8 +31,7 @@ int main()
     {
         student.grade = 0;
         system("cls");
-        GetProblem(&student);
-        GetGrade(&student);
+        GetGrade(GetProblem(&student));
         End(&student);
     }
 }
