@@ -31,7 +31,8 @@ int main()
     {
         student.grade = 0;
         system("cls");
-        GetGrade(GetProblem(&student));
+        GetProblem(&student);
+        GetGrade(&student);
         End(&student);
     }
 }
@@ -70,7 +71,7 @@ void GetGrade(Problem *p)
             }
             else if (j == 2)
             {
-                printf("正确答案为:\n%d%+d=%d\n", p->problem[i][0], p->problem[i][1], p->problem[i][0] + p->problem[i][1]);\
+                printf("脮媒脠路麓冒掳赂脦陋:\n%d%+d=%d\n", p->problem[i][0], p->problem[i][1], p->problem[i][0] + p->problem[i][1]);\
             }
             WrongOrCorrect(1);
         }
